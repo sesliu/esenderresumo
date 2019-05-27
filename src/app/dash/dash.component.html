@@ -1,0 +1,174 @@
+<!-- Page Content -->
+<div id="page-wrapper" style="min-height: 522px;">
+
+  <div class="container-fluid" style="margin-top: 10px">
+
+    <div class="row">
+
+      <div class="col-xs-12 col-lg-3">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            Arquivos
+          </div>
+          <div class="panel-body">
+            <span>1744</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-lg-3">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            Erro
+          </div>
+          <div class="panel-body">
+            <span>1744</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-lg-3">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            Sucesso
+          </div>
+          <div class="panel-body">
+            <span>0</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-lg-3">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            Fila de Envio
+          </div>
+          <div class="panel-body">
+            <span>0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <form action="http://win-vs-esender:5000/esender/ResumoWeb/Resultado" method="get">
+      <div class="form-group">
+        <!-- Date input -->
+        <label class="control-label" for="date_inicio">Data de Início</label>
+        <input class="form-control, max-datas" id="date_inicio" name="dtInicio" placeholder="DD/MM/YYYY" type="date" style="margin-left:6px">
+
+        <label class="control-label" for="date_final" style="margin-left:12px">Data Final</label>
+        <input class="form-control, max-datas" id="date_final" name="dtFim" placeholder="DD/MM/YYYY" type="date" style="margin-left:6px">
+
+        <!-- Submit button -->
+        <button style="margin-left:6px" class="btn btn-success " name="submit" type="submit">Atualizar</button>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="container-fluid">
+      <div class="col-12 col-sm-12  col-lg-10">
+        <div class=" table-responsive ">
+        <table class="table table-bordered" style="background: #eee">
+
+         <tr *ngFor="let ocorrencia of listaLotes" > 
+          <caption class="fonte-table" style="background: #eee;border: 1px solid #999999; padding: 3px 10px">CNPJ:
+            {{ocorrencia.cnpj}}</caption>
+
+          <thead>
+            <tr>
+              <th style="font-size: 15px;font-weight: bold;border: 1px solid #999999">Lote</th>
+              <th style="font-size: 15px;font-weight: bold;border: 1px solid #999999">Arq. Original</th>
+              <th style="font-size: 15px;font-weight: bold;border: 1px solid #999999">Evento autorizado
+              </th>
+              <th style="font-size: 15px;font-weight: bold;border: 1px solid #999999">XML Retorno</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-size: 15px;background: #f8f8f8;border: 1px solid #999999"> {{ocorrencia.lote}}</td>
+              <td style="font-size: 15px;background: #f8f8f8;border: 1px solid #999999">
+                {{ocorrencia.caminhoArq}}</td>
+              <td style="font-size: 15px;background: #f8f8f8;border: 1px solid #999999"> {{ocorrencia.eventoAutorizado}}</td>
+              <td style="font-size: 15px;;background: #f8f8f8;border: 1px solid #999999">"ocorrencia.linkXmlRetorno"</td>
+            </tr>
+           
+          </tbody>
+         </tr>
+         <tr *ngFor="let erro of listaErros">
+          <thead>
+            <tr>
+              <th scope="col" style="font-size: 15px;font-weight: bold;border: 1px solid #999999">Codigo</th>
+              <th scope="col" style="font-size: 15px;font-weight: bold;border: 1px solid #999999">Mensagem</th>
+              <th scope="col" style="font-size: 15px;font-weight: bold;border: 1px solid #999999">Gravidade</th>
+              <th style="background:  #f8f8f8;border: 1px solid #f8f8f8;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-size: 15px;background: #f8f8f8;border: 1px solid #999999">{{erro.codigo}}</td>
+              <td style="font-size: 15px;background: #f8f8f8;border: 1px solid #999999">{{erro.msgErro}}</td>
+              <td style="font-size: 15px;background: #f8f8f8;border: 1px solid #999999">{{erro.gravidade}}</td>
+              <td style="background: #f8f8f8;border: 1px solid #f8f8f8;"></td>
+            </tr>
+          </tbody>
+        </tr>
+         <!-- 
+          <thead>
+            <tr>
+              <th style="background:  #f8f8f8;border: 1px solid #f8f8f8;border-bottom: 1px solid #999999"></th>
+              <th style="background:  #f8f8f8;border: 1px solid #f8f8f8;border-bottom: 1px solid #999999"></th>
+              <th style="background:  #f8f8f8;border: 1px solid #f8f8f8;border-bottom: 1px solid #999999"></th>
+              <th style="background:  #f8f8f8;border: 1px solid #f8f8f8;border-bottom: 1px solid #999999"></th>
+            </tr>
+          </thead>
+          <thead>
+            <tr>
+              <th scope="col" style="font-size: 15px;font-weight: bold;border: 1px solid #999999">Lote</th>
+              <th scope="col" style="font-size: 15px;font-weight: bold;border: 1px solid #999999">Arq. Original</th>
+              <th scope="col" style="font-size: 15px;font-weight: bold;border: 1px solid #999999">Evento autorizado
+              </th>
+              <th scope="col" style="font-size: 15px;font-weight: bold;border: 1px solid #999999">XML Retorno</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-size: 15px;background: #f8f8f8;border: 1px solid #999999">6037</td>
+              <td style="font-size: 15px;background: #f8f8f8;border: 1px solid #999999">
+                C:\teste\rubricas_S1010_40168635000117_ID1401686350000002019042416572706724.xml</td>
+              <td style="font-size: 15px;background: #f8f8f8;border: 1px solid #999999">Não</td>
+              <td style="font-size: 15px;;background: #f8f8f8;border: 1px solid #999999"><a
+                  href="http://win-vs-esender:5000/esender/ResumoWeb/XMLRetorno?PIdLote=6037"
+                  download="Retorno_retorno_rubricas_S1010_40168635000117_ID1401686350000002019042416572706724_20190515115841.xml">Arq.
+                  Retorno</a></td>
+            </tr>
+
+          </tbody>
+          <thead>
+            <tr>
+              <th scope="col" style="font-size: 15px;font-weight: bold;border: 1px solid #999999">Codigo</th>
+              <th scope="col" style="font-size: 15px;font-weight: bold;border: 1px solid #999999">Mensagem</th>
+              <th scope="col" style="font-size: 15px;font-weight: bold;border: 1px solid #999999">Gravidade</th>
+              <th style="background:  #f8f8f8;border: 1px solid #f8f8f8;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-size: 15px;background: #f8f8f8;border: 1px solid #999999">102</td>
+              <td style="font-size: 15px;background: #f8f8f8;border: 1px solid #999999">
+                O Evento informado não foi reconhecido pelo sistema.
+                Ação Sugerida: Verificar se o evento informado e a versão do leiaute estão de acordo com a Tabela 9
+                (Tipos
+                de Arquivo do eSocial) do eSocial.</td>
+              <td style="font-size: 15px;background: #f8f8f8;border: 1px solid #999999">Erro</td>
+              <td style="background: #f8f8f8;border: 1px solid #f8f8f8;"></td>
+            </tr>
+          </tbody> -->
+       
+        </table>
+      </div>
+      </div>
+  </div>
+</div>
