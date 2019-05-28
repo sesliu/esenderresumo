@@ -1,7 +1,16 @@
+<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+  <div class="navbar-header">
+    <img src="../../assets/esender.png"  width="90" height="90"  style="height: 30%;">
+    <span style="color:#666;font-size: 20px;font-family: Arial, Helvetica, sans-serif">Resumo de Operações (Período: 02-05-19 a 02-05-19) </span>
+    <span class="client" style="color:#666;font-size: 20px;font-family: Arial, Helvetica, sans-serif">Programare</span>
+    <span class="client" ><a style="color:#3bb5a8;" href="http://win-vs-esender:5000/esender">Índice</a></span>
+  </div>
+</nav>
+
 <!-- Page Content -->
 <div id="page-wrapper" style="min-height: 522px;">
 
-  <div class="container-fluid" style="margin-top: 10px">
+  <div class="container-fluid">
 
     <div class="row">
 
@@ -11,7 +20,7 @@
             Arquivos
           </div>
           <div class="panel-body">
-            <span>1744</span>
+            <span style="color:#666;font-size: 100px;font-family: Arial, Helvetica, sans-serif">1744</span>
           </div>
         </div>
       </div>
@@ -22,7 +31,7 @@
             Erro
           </div>
           <div class="panel-body">
-            <span>1744</span>
+            <span style="color:#666;font-size: 100px;font-family: Arial, Helvetica, sans-serif">1744</span>
           </div>
         </div>
       </div>
@@ -33,7 +42,7 @@
             Sucesso
           </div>
           <div class="panel-body">
-            <span>0</span>
+            <span style="color:#666;font-size: 100px;font-family: Arial, Helvetica, sans-serif">0</span>
           </div>
         </div>
       </div>
@@ -44,7 +53,7 @@
             Fila de Envio
           </div>
           <div class="panel-body">
-            <span>0</span>
+            <span style="color:#666;font-weight: 700; font-size: 100px;font-family: Arial, Helvetica, sans-serif">0</span>
           </div>
         </div>
       </div>
@@ -56,10 +65,12 @@
       <div class="form-group">
         <!-- Date input -->
         <label class="control-label" for="date_inicio">Data de Início</label>
-        <input class="form-control, max-datas" id="date_inicio" name="dtInicio" placeholder="DD/MM/YYYY" type="date" style="margin-left:6px">
+        <input class="form-control, max-datas" id="date_inicio" name="dtInicio" placeholder="DD/MM/YYYY" type="date"
+          style="margin-left:6px">
 
         <label class="control-label" for="date_final" style="margin-left:12px">Data Final</label>
-        <input class="form-control, max-datas" id="date_final" name="dtFim" placeholder="DD/MM/YYYY" type="date" style="margin-left:6px">
+        <input class="form-control, max-datas" id="date_final" name="dtFim" placeholder="DD/MM/YYYY" type="date"
+          style="margin-left:6px">
 
         <!-- Submit button -->
         <button style="margin-left:6px" class="btn btn-success " name="submit" type="submit">Atualizar</button>
@@ -67,55 +78,61 @@
 
     </form>
   </div>
+  <div id="resumo" class="container-fluid">
+    <div class="divTable" style="width: 100%;">
+      <div class="container-fluid">
+        <div class="col-12 col-sm-12  col-lg-10">
+          <div class=" table-responsive ">
+            <table *ngFor="let ocorrencia of listaLotes" class="table table-bordered" style="background: #eee">
 
-  <div class="container-fluid">
-      <div class="col-12 col-sm-12  col-lg-10">
-        <div class=" table-responsive ">
-        <table class="table table-bordered" style="background: #eee">
+              <!--<tr *ngFor="let ocorrencia of listaLotes">-->
+                <caption class="fonte-table" style="background: #eee;border: 1px solid #999999; padding: 3px 10px">CNPJ:
+                  {{ocorrencia.cnpj}}</caption>
 
-         <tr *ngFor="let ocorrencia of listaLotes" > 
-          <caption class="fonte-table" style="background: #eee;border: 1px solid #999999; padding: 3px 10px">CNPJ:
-            {{ocorrencia.cnpj}}</caption>
+                <thead>
+                  <tr>
+                    <th style="font-size: 15px;font-weight: bold;border: 1px solid #999999">Lote</th>
+                    <th style="font-size: 15px;font-weight: bold;border: 1px solid #999999">Arq. Original</th>
+                    <th style="font-size: 15px;font-weight: bold;border: 1px solid #999999">Evento autorizado
+                    </th>
+                    <th style="font-size: 15px;font-weight: bold;border: 1px solid #999999">XML Retorno</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="font-size: 15px;background: #f8f8f8;border: 1px solid #999999"> {{ocorrencia.lote}}</td>
+                    <td style="font-size: 15px;background: #f8f8f8;border: 1px solid #999999">
+                      {{ocorrencia.caminhoArq}}</td>
+                    <td style="font-size: 15px;background: #f8f8f8;border: 1px solid #999999">
+                      {{ocorrencia.eventoAutorizado}}</td>
+                    <td style="font-size: 15px;;background: #f8f8f8;border: 1px solid #999999">
+                      <a target="_blank" href="{{ocorrencia.href}}" download="{{ocorrencia.download}}">Arq.Retorno</a></td>
+                  </tr>
 
-          <thead>
-            <tr>
-              <th style="font-size: 15px;font-weight: bold;border: 1px solid #999999">Lote</th>
-              <th style="font-size: 15px;font-weight: bold;border: 1px solid #999999">Arq. Original</th>
-              <th style="font-size: 15px;font-weight: bold;border: 1px solid #999999">Evento autorizado
-              </th>
-              <th style="font-size: 15px;font-weight: bold;border: 1px solid #999999">XML Retorno</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="font-size: 15px;background: #f8f8f8;border: 1px solid #999999"> {{ocorrencia.lote}}</td>
-              <td style="font-size: 15px;background: #f8f8f8;border: 1px solid #999999">
-                {{ocorrencia.caminhoArq}}</td>
-              <td style="font-size: 15px;background: #f8f8f8;border: 1px solid #999999"> {{ocorrencia.eventoAutorizado}}</td>
-              <td style="font-size: 15px;;background: #f8f8f8;border: 1px solid #999999">"ocorrencia.linkXmlRetorno"</td>
-            </tr>
+                </tbody>
+
+
+                <thead>
+                  <tr>
+                    <th scope="col" style="font-size: 15px;font-weight: bold;border: 1px solid #999999">Codigo</th>
+                    <th scope="col" style="font-size: 15px;font-weight: bold;border: 1px solid #999999">Mensagem</th>
+                    <th scope="col" style="font-size: 15px;font-weight: bold;border: 1px solid #999999">Gravidade</th>
+                    <th style="background:  #f8f8f8;border: 1px solid #f8f8f8;"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="font-size: 15px;background: #f8f8f8;border: 1px solid #999999">{{ocorrencia.codigoErro}}
+                    </td>
+                    <td style="font-size: 15px;background: #f8f8f8;border: 1px solid #999999">{{ocorrencia.mensagemErro}}
+                    </td>
+                    <td style="font-size: 15px;background: #f8f8f8;border: 1px solid #999999">{{ocorrencia.gravidade}}
+                    </td>
+                    <td style="background: #f8f8f8;border: 1px solid #f8f8f8;"></td>
+                  </tr>
+                </tbody>
+            <!--      </tr>
            
-          </tbody>
-         </tr>
-         <tr *ngFor="let erro of listaErros">
-          <thead>
-            <tr>
-              <th scope="col" style="font-size: 15px;font-weight: bold;border: 1px solid #999999">Codigo</th>
-              <th scope="col" style="font-size: 15px;font-weight: bold;border: 1px solid #999999">Mensagem</th>
-              <th scope="col" style="font-size: 15px;font-weight: bold;border: 1px solid #999999">Gravidade</th>
-              <th style="background:  #f8f8f8;border: 1px solid #f8f8f8;"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="font-size: 15px;background: #f8f8f8;border: 1px solid #999999">{{erro.codigo}}</td>
-              <td style="font-size: 15px;background: #f8f8f8;border: 1px solid #999999">{{erro.msgErro}}</td>
-              <td style="font-size: 15px;background: #f8f8f8;border: 1px solid #999999">{{erro.gravidade}}</td>
-              <td style="background: #f8f8f8;border: 1px solid #f8f8f8;"></td>
-            </tr>
-          </tbody>
-        </tr>
-         <!-- 
           <thead>
             <tr>
               <th style="background:  #f8f8f8;border: 1px solid #f8f8f8;border-bottom: 1px solid #999999"></th>
@@ -166,9 +183,13 @@
               <td style="background: #f8f8f8;border: 1px solid #f8f8f8;"></td>
             </tr>
           </tbody> -->
-       
-        </table>
+
+            </table>
+          </div>
+        </div>
       </div>
+      <div class="divTable" style="width:100%; border:1px solid #000">
       </div>
+    </div>
   </div>
 </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { JsonPipe } from '@angular/common';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dash',
@@ -8,13 +9,14 @@ import { JsonPipe } from '@angular/common';
 })
 export class DashComponent implements OnInit {
 
-public dadosOcorrencia = [];
+public dadosOcorrencia;
 public listaLotes =[];
 public listaErros =[]
+public retorno;
 
-  constructor() { 
+  constructor(private sanitizer:DomSanitizer) { 
 
-    this.dadosOcorrencia = [
+    this.dadosOcorrencia = 
       {
         "cnpj": "40168635000117",
         "lotes": [
@@ -29,7 +31,7 @@ public listaErros =[]
             "erros": [
               {
                 "codigo": 102,
-                "msgErro": "O Evento informado n&#227;o foi reconhecido pelo sistema.\nA&#231;&#227;o Sugerida: Verificar se o evento informado e a vers&#227;o do leiaute est&#227;o de acordo com a Tabela 9 (Tipos de Arquivo do eSocial) do eSocial.",
+                "msgErro": "O Evento informado;o foi reconhecido pelo sistema.o Sugerida: Verificar se o evento informado e a vers&#227;o do leiaute est&#227;o de acordo com a Tabela 9 (Tipos de Arquivo do eSocial) do eSocial.",
                 "gravidade": "Erro"
               }
             ]
@@ -45,34 +47,72 @@ public listaErros =[]
             "erros": [
               {
                 "codigo": 102,
-                "msgErro": "O Evento informado n&#227;o foi reconhecido pelo sistema.\nA&#231;&#227;o Sugerida: Verificar se o evento informado e a vers&#227;o do leiaute est&#227;o de acordo com a Tabela 9 (Tipos de Arquivo do eSocial) do eSocial.",
+                "msgErro": "O Evento informado n&#227;o foi reconhecido pelo sistema.o Sugerida: Verificar se o evento informado e a vers&#227;o do leiaute est&#227;o de acordo com a Tabela 9 (Tipos de Arquivo do eSocial) do eSocial.",
                 "gravidade": "Erro"
               }
             ]
           }
         ]
   
-      }];
+      };
 
-      
-     for(let i  of this.dadosOcorrencia){
+      this.retorno = this.dadosOcorrencia.lotes;
 
-         this.listaLotes = i.lotes;
+
+      let codigoErro, mensagemErro, gravidade
+
+      for(let i = 0; i <  this.retorno.length; i++){
+  
+        for(let j of this.retorno[i].erros){
+
+          
+          codigoErro = j.codigo;
+          mensagemErro  = j.msgErro;
+          gravidade = j.gravidade;
+
+  
+
+        }
+
+
+       let url : string;
+       let download : string;
+       url = this.retorno[i].linkXmlRetorno.substring(this.retorno[i].linkXmlRetorno.indexOf('<a href=')+8,this.retorno[i].linkXmlRetorno.lastIndexOf('download'));
+       download = this.retorno[i].linkXmlRetorno.substring(this.retorno[i].linkXmlRetorno.indexOf('download=')+9,this.retorno[i].linkXmlRetorno.lastIndexOf('>Arq. Retorno<'))
+     
+        this.listaLotes.push({
+
+          'cnpj': this.retorno[i].cnpj,
+          'lote': this.retorno[i].lote,
+          'caminhoArq' : this.retorno[i].caminhoArq,
+          'nomeArquivo' : this.retorno[i].nomeArquivo,
+          'eventoAutorizado' : this.retorno[i].eventoAutorizado,
+          'linkXmlRetorno' : this.retorno[i].linkXmlRetorno,
+          'href' : url.toString().replace('"','').replace('"',''),
+          'download' : download.toString().replace('"','').replace('"',''),
+          'retornoDisponivel' : this.retorno[i].retornoDisponivel,
+          'codigoErro' : codigoErro,
+          'mensagemErro' : mensagemErro,
+          'gravidade' : gravidade
         
-     }
-     
-     for(let i of this.listaLotes){
-
-        this.listaErros = i.erros;
-     }
-
-     console.log(this.listaLotes)
-
+        });
       
-     
+      }
       
      
   }
+
+
+
+  redirecionarUrl(url:string){
+
+    //console.log(url)
+    window.location.href=url;
+  }
+
+  sanitize(url:string){
+    return this.sanitizer.bypassSecurityTrustUrl(url);
+}
 
   ngOnInit() {
 
