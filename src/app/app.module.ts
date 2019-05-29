@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { DashComponent } from './dash/dash.component';
 import { UIRouterModule, RootModule } from '@uirouter/angular';
 import { CabecalhoComponent } from './cabecalho/cabecalho.component';
-
+import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
 
 
 
@@ -33,6 +33,7 @@ const rootModule : RootModule = {
   imports: [
     BrowserModule,
     UIRouterModule.forRoot(rootModule),
+    NgxPaginationModule
   
    
   ],
