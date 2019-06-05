@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { JsonPipe } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
+import { DashService } from './dash.service';
+import { BaseRequestDash } from './baseRequestDash';
 
 @Component({
   selector: 'app-dash',
@@ -14,8 +16,13 @@ export class DashComponent implements OnInit {
   public listaErros = []
   public retorno;
   public p: number = 1;
+  public arquivos:string = "0";
+  public erro: string = "0";
+  public sucesso: string = "0";
+  public envio: string = "0";
 
-  constructor(private sanitizer: DomSanitizer) {
+
+  constructor(private sanitizer: DomSanitizer, private service:DashService) {
 
     this.dadosOcorrencia =
       {
@@ -1686,6 +1693,28 @@ export class DashComponent implements OnInit {
   }
 
   ngOnInit() {
+
+   
+
+    let idTransmissor = "1";
+    let pagina = "0";
+    let dataInicio =  "01/05/2019";
+    let dataFim = "31/05/2019"
+
+  
+
+    this.service.obterInfoDashboard(new BaseRequestDash(idTransmissor, pagina, dataInicio, dataFim)).subscribe(response =>{
+
+      console.log(response);
+
+      this.arquivos = response.totalArquivos.toString();
+      this.erro = response.erro.toString();
+      this.sucesso = response.enviadosComSucesso.toString();
+      this.envio = response.filaEnvio.toString();
+
+
+
+    });
 
 
   }

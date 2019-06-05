@@ -6,6 +6,8 @@ import { DashComponent } from './dash/dash.component';
 import { UIRouterModule, RootModule } from '@uirouter/angular';
 import { CabecalhoComponent } from './cabecalho/cabecalho.component';
 import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
+import { HttpClient, HttpHandler, HttpClientModule} from '@angular/common/http';
+
 
 
 
@@ -33,7 +35,8 @@ const rootModule : RootModule = {
   imports: [
     BrowserModule,
     UIRouterModule.forRoot(rootModule),
-    NgxPaginationModule
+    NgxPaginationModule,
+    HttpClientModule
   
    
   ],
